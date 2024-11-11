@@ -1,0 +1,24 @@
+<div class="row text-center">
+    <div class="col-md-12 align-middle">
+        <div class="form-container">
+        <form action="POST" class="form" [formGroup]="loginForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <h2 class="page-title">Login</h2>
+            </div>
+            <div class="row">
+                <input formControlName="username" type="text" id="login" pattern="[a-zA-Z0-9-].{2,}" class="input-box" name="login" placeholder="Username" title="Só pode ter caracteres alfanuméricos e deve ter três caracteres no mínimo.">
+            </div>
+            <div class="row">
+                <input formControlName="password" type="password" id="password" class="input-box" name="login" placeholder="Password">
+            </div>    
+            <div class="row">
+                <input type="submit" class="submit" value="Log In">
+            </div>
+            
+        </form>
+        <div *ngIf="!checkBool()" class="alert alert-danger"> 
+            Nome de utilizador ou senha erradas. Tenta novamente! 
+        </div> 
+        </div>
+    </div>
+</div>

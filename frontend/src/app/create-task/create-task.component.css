@@ -1,0 +1,67 @@
+.list-group-item{
+    display: flow-root;
+    position: relative;
+}
+
+.list-group-item span{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#progress{
+    width: 100%;
+    display: inline-block;
+}
+
+#progressBttn{
+    display: inline-block;
+}
+
+.box{
+    display: flex;
+    justify-content: space-between;
+}
+
+.progressIdentifier {
+    display: flex;
+    justify-content:space-evenly;
+    margin-bottom: 20px;
+
+}
+
+.range {
+    width: 200px !important;
+    display: flex;
+}
+
+.linhaLista {
+    display: flex;
+    text-align: center;
+}
+
+.alignButtons{
+    height: 100%;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.alignBottom{
+    position: absolute;
+    bottom: 0;
+}
+
+/* .deleteButton{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    
+}
+
+#deleteBttn{
+    width: 120px;
+} */

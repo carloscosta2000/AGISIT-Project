@@ -1,0 +1,16 @@
+.margin-top{
+    margin-top: 50px;
+}
+
+.navbar-brand{
+    color: white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: 900;
+    background-color: #575757;
+    -webkit-border-radius: 10px;
+}
+
+.navbar-brand:hover { 
+    background-color: #575757 !important;
+    color: rgb(212, 212, 212);
+}

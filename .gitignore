@@ -1,0 +1,6 @@
+project-manager-g09-6420529a13a8.json
+*.tfvars
+.terraform
+.vagrant
+*.tfstate*
+.terraform*

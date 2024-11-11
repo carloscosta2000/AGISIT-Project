@@ -1,0 +1,72 @@
+<div class="container">
+  <div *ngIf="isAdmin">
+    <h2>Registo</h2>
+  
+    <form [formGroup]="userForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+  
+      <div>
+  
+        <div class="cross-validation">
+          <div class="form-group">
+  
+            <label for="name">Nome</label>
+            <input type="text" id="name" class="form-control"
+                  formControlName="name" required>
+  
+            <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="alert alert-danger">
+  
+              <div *ngIf="name.errors?.['required']">
+                O nome do utilizador é obrigatório.
+              </div>
+              <div *ngIf="name.errors?.['minlength']">
+                O nome de utilizador deve ter 3 caracteres no mínimo.
+              </div>
+              <div *ngIf="name.errors?.['forbiddenName']">
+                O nome de utilizador só pode ter caracteres alfanuméricos.
+              </div>              
+            </div>
+            <div *ngIf="userForm.errors?.['uniqueName']"
+                class="alert alert-danger">
+                  O nome de utilizador já existe.
+            </div>
+
+            <label for="password">Senha</label>
+            <input type="password" id="password" class="form-control"
+                  formControlName="password" required>
+
+              <div *ngIf="password.invalid"
+                  class="alert alert-danger">
+    
+                <div *ngIf="password.errors?.['required']">
+                    A senha é obrigatória.
+                </div>
+                <div *ngIf="password.errors?.['minlength']">
+                    A senha deve ter 8 caracteres no mínimo.
+                </div>
+                <div *ngIf="password.errors?.['forbiddenPassword']">
+                    A senha deve ter pelo menos uma letra maiúscula, uma letra minúscula e um algarismo.
+                </div>
+                <div *ngIf="password.errors?.['specialChars']">
+                    A senha não pode conter caracteres especiais.
+                </div>
+                
+              </div>
+
+          </div>
+        </div>  
+
+        <button type="submit"
+                class="btn btn-default"
+                [disabled]="userForm.invalid">Criar</button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="!isAdmin">
+    <h2>Apenas administradores podem criar utilizadores.</h2>
+  </div>
+
+  <div *ngIf="userCreated" class="alert alert-success">
+    Utilizador criado com sucesso.
+  </div>
+  </div>

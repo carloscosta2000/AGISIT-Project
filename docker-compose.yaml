@@ -1,0 +1,98 @@
+version: '3'
+
+services:
+  project:
+    build:
+      context: project
+    image: ${REPO}/pm-project:${TAG}
+    networks:
+      - projects-manager
+    # depends_on:
+    #   - mongo
+    environment:
+      - MONGO_URL=mongodb://project:UenbhkDgE1sSUkyQUE8@mongo:27017/agisit023?directConnection=true
+    ports:
+      - 3019:3019
+    logging: &logging
+      driver: "json-file"
+      options:
+        max-size: "25m"
+        max-file: "2"
+
+  task:
+      build:
+        context: task
+      image: ${REPO}/pm-task:${TAG}
+      networks:
+        - projects-manager
+      # depends_on:
+      #   - mongo
+      environment:
+        - MONGO_URL=mongodb://task:zYXm7HJNpsNPsTBte4@mongo:27017/agisit023?directConnection=true
+      ports:
+        - 3020:3020
+      logging:
+        <<: *logging
+
+  user:
+    build:
+      context: user
+    image: ${REPO}/pm-user:${TAG}
+    networks:
+      - projects-manager
+    # depends_on:
+    #   - mongo
+    environment:
+      - MONGO_URL=mongodb://user:ynIxj882Uo53mDFGs@mongo:27017/agisit023?directConnection=true
+    ports:
+      - 3021:3021
+    logging:
+      <<: *logging
+    
+  frontend:
+    build:
+      context: frontend
+    image: ${REPO}/pm-frontend:${TAG}
+    networks:
+      - projects-manager
+    depends_on:
+      - project
+      - task
+      - user
+    environment:
+      - ENV=prod
+      - BASE_URL=http://backend:3019/ 
+    ports:
+      - 8080:80
+    logging:
+      <<: *logging
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: agisit023
+    networks:
+      - projects-manager
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    logging:
+      <<: *logging
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    depends_on:
+      - mongo
+    ports:
+      - 8081:8081
+    networks:
+      - projects-manager
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+networks:
+  projects-manager:

@@ -1,0 +1,93 @@
+<div class="container">
+  <div *ngIf="isAdmin">
+    <h2>Criar Projecto</h2>
+  
+    <form [formGroup]="projectForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+  
+      <div>
+  
+        <div class="cross-validation">
+          <div class="form-group">
+            <label for="projectName">Nome do projecto</label>
+            <input type="text" id="projectName" class="form-control"
+                  formControlName="projectName" required>
+
+            <div *ngIf="projectName?.invalid"
+                class="alert alert-danger">
+                
+              <div *ngIf="projectName?.errors?.['required']">
+                O nome do projecto é obrigatório.
+              </div>
+              <div *ngIf="projectName?.errors?.['minlength']">
+                O nome do projecto deve ter 4 caracteres no mínimo.
+              </div>
+              <div *ngIf="projectName?.errors?.['forbiddenProjectName']">
+                O nome do projecto só pode ter caracteres alfanuméricos.
+              </div>              
+            </div>
+
+            <label for="acronym">Acrónimo</label>
+            <input type="text" id="acronym" class="form-control"
+                  formControlName="acronym" required>
+
+              <div *ngIf="acronym?.invalid"
+                  class="alert alert-danger">
+    
+                <div *ngIf="acronym?.errors?.['required']">
+                    O acrónimo do projecto é obrigatório.
+                </div>
+                <div *ngIf="acronym?.errors?.['minlength']">
+                  O acrónimo do projecto deve ter 3 caracteres.
+                </div>
+                <div *ngIf="acronym?.errors?.['forbiddenAcronym']">
+                    O acrónimo deve conter exatamente 3 caracteres alfanuméricos.
+                </div>
+              </div>
+              <div *ngIf="projectForm.errors?.['uniqueName']"
+                class="alert alert-danger">
+                  O acrónimo do projeto já existe.
+            </div>
+
+            <label for="startDate">Data de Início</label>
+            <input type="date" id="startDate" class="form-control"
+                  formControlName="startDate" required>
+
+              <div *ngIf="startDate?.invalid"
+                  class="alert alert-danger">
+    
+                <div *ngIf="startDate?.errors?.['required']">
+                    A data de início é obrigatória.
+                </div>
+                <div *ngIf="startDate?.errors?.['forbiddenStartDate']">
+                  A data de início tem de ser maior ou igual que a atual.
+              </div>
+                
+              </div>
+
+            <label for="endDate">Data de Fim</label>
+            <input type="date" id="endDate" class="form-control"
+                  formControlName="endDate" >
+
+              <div *ngIf="projectForm.errors?.['endDate']"
+                  class="alert alert-danger">
+                <div *ngIf="projectForm.errors?.['endDate']">
+                    A data de Fim tem que ser posterior à data de Início.
+                </div>
+              </div>
+
+          </div>
+        </div>  
+
+        <button type="submit"
+                class="btn btn-default"
+                [disabled]="projectForm.invalid">Criar</button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="!isAdmin">
+    <h2>Apenas administradores podem criar Projetos.</h2>
+  </div>
+  <div *ngIf="projectCreated" class="alert alert-success">
+    Projeto criado com sucesso.
+  </div>
+</div>

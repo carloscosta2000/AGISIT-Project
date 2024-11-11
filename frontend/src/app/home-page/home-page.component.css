@@ -1,0 +1,13 @@
+h3{
+    font-weight: 500;
+}
+
+.col-md-6{
+    text-align: center;
+    width: 100%;
+}
+
+.btn.btn-primary.btn-lg{
+    background-color: #575757;
+    border: 0px;
+}

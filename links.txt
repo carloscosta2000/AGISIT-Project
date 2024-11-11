@@ -1,0 +1,3 @@
+https://yasharma06.medium.com/deploy-locally-nodejs-and-mongodb-application-locally-c1bad2308d11
+https://www.bogotobogo.com/DevOps/Docker/Docker_Kubernetes_MongoDB_MongoExpress.php
+https://github.com/kubernetes/examples/blob/master/staging/nodesjs-mongodb/README.md

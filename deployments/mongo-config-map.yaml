@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2023-10-23T09:42:45Z"
+  name: create-mongodb-configmap1
+  namespace: default
+  resourceVersion: "22041"
+  uid: 6831d78f-23fb-4ddd-af28-865fbc64a28c
+apiVersion: v1
+data:
+  mongo-init.js: |-
+    db.createUser(
+      {
+        user: "project",
+        pwd: "UenbhkDgE1sSUkyQUE8",
+        roles: [
+          {
+            role: "readWrite",
+            db: "agisit023"
+          }
+        ]
+      }
+    );
+    db.createUser(
+      {
+        user: "task",
+        pwd: "zYXm7HJNpsNPsTBte4",
+        roles: [
+          {
+            role: "readWrite",
+            db: "agisit023"
+          }
+        ]
+      }
+    );
+    db.createUser(
+      {
+        user: "user",
+        pwd: "ynIxj882Uo53mDFGs",
+        roles: [
+          {
+            role: "readWrite",
+            db: "agisit023"
+          }
+        ]
+      }
+    );
+      db.createCollection('users');
+      db.users.insertOne(
+        {
+          username: 'Admin1',
+          password: 'Aa123456',
+          isAdmin: true
+        }
+      );
+      db.users.insertOne(
+        {
+          username: 'User1',
+          password: 'Bb123456',
+          isAdmin: false
+        }
+      );

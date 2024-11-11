@@ -1,0 +1,49 @@
+<h2>Associar Tarefas a Projectos</h2>
+
+<form [formGroup]="associateForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+    <label for="projects">Projectos</label>
+    <select formControlName="projects" class="form-control" id="priority" required>
+        <option *ngFor="let project of projects" value={{project._id}}>{{project.projectName}} - {{project.acronym}}</option>
+    </select>
+    <br>
+    <label for="tasks">Tarefas</label>
+    <select formControlName="tasks" class="form-control" id="priority" required>
+        <option *ngFor="let task of tasks" value={{task._id}}>{{task.taskName}}</option>
+    </select>
+    <br>
+    <button type="submit" [disabled]="associateForm.invalid" class="btn btn-default">Associar</button>
+</form>
+
+<div *ngIf="taskAssociated" class="alert alert-success">
+    Tarefa associada com sucesso.
+</div>
+
+<h3 style="margin-bottom: 10px;">Tarefas Associadas:</h3>
+    <ul class="list-group">
+            <li *ngFor="let task of tasks" class="list-group-item"> 
+                <div class="row">
+                    <div class="col-md-4"><span><strong>Nome da Tarefa:</strong> {{task.taskName}}</span></div>
+                    <div class="col-md-8">
+                        
+                        <ng-container *ngIf="task.project != ''">
+                            {{task.taskName}}
+                            <strong>Projeto:</strong>
+                            <ul style="padding-left: 0;">
+                                <li *ngFor="let project of projects" value={{project.acronym}} style="list-style-type: none; /* Remove bullets */">
+                                    <ng-container *ngIf="task.project == project.acronym">
+                                        <div class="row" style="margin-bottom: 10px">
+                                            <div class="col-md-6">{{project.projectName}} - {{project.acronym}}</div>
+                                            <div class="col-md-6"><button type="button" class="btn btn-danger" (click)="deleteAssociation(project.acronym, task._id)">Apagar</button></div>
+                                        </div>
+                                    </ng-container>  
+                                </li>
+                            </ul>
+                        </ng-container>
+                        <ng-container *ngIf="task.project == ''">
+                            <strong>Não tem Projeto Associado.</strong>
+                        </ng-container>
+                    </div>
+                </div>
+            </li>
+    </ul>
+

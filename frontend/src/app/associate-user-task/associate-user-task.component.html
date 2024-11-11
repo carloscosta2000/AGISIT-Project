@@ -1,0 +1,53 @@
+<h2>Associar Utilizador a uma Tarefa</h2>
+
+<form [formGroup]="associateForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+    <label for="users">Utilizadores</label>
+    <select formControlName="users" class="form-control" id="priority" required>
+        <option *ngFor="let user of users" value={{user.username}}>{{user.username}}</option>
+    </select>
+    <br>
+    <div *ngIf="associateForm.value.users">
+        <label for="tasks">Tarefas</label>
+        <select formControlName="tasks" class="form-control" id="priority" required>
+            <ng-container *ngFor="let task of tasks">
+                <option *ngIf="!task.user.includes(associateForm.value.users)" value={{task._id}}>{{task.taskName}}</option>
+            </ng-container>
+        </select>
+    </div>
+    <br>
+    <!--  -->
+    <button type="submit" [disabled]="associateForm.invalid" class="btn btn-default">Associar</button>
+
+</form>
+<div *ngIf="taskAssociated" class="alert alert-success">
+    Tarefa associada com sucesso.
+</div>
+
+<br>
+<h3 style="margin-bottom: 10px;">Utilizadores Associados:</h3>
+    <ul class="list-group">
+      <li *ngFor="let task of tasks" class="list-group-item"> 
+          <div class="row">
+              <div class="col-md-4"><span><strong>Nome da Tarefa:</strong> {{task.taskName}}</span></div>
+              <div class="col-md-8">
+                <strong>Utilizadores:</strong>
+                  <ul style="padding-left: 0;">
+                      <li *ngFor="let username of task.user" value={{username}} style="list-style-type: none; /* Remove bullets */">
+                          <div class="row" style="margin-bottom: 10px">
+                              <div class="col-md-6">{{username}} </div>
+                              <div class="col-md-6"><button type="button" class="btn btn-danger" (click)="deleteAssociation(task._id, username)">Apagar</button></div>
+                          </div>
+                          
+                          
+                        </li>
+                      <!-- <li *ngFor="let username of task.user" value={{username}}>{{username}} <button type="button" class="btn btn-danger" style="float: right;" (click)="deleteAssociation(task._id, username)">Apagar</button></li> -->
+                  </ul>
+              </div>
+          </div>
+      </li>
+    </ul>
+
+<div *ngIf="taskDisassociated" class="alert alert-success">
+    Tarefa desassociada com sucesso.
+</div>
+
